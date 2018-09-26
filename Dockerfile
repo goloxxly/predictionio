@@ -8,6 +8,8 @@ RUN groupadd -r pio && useradd --no-log-init -r -g pio pio
 WORKDIR /home/pio
 RUN chown -R pio:pio /home/pio
 
+ENV PIO_HOME /home/pio/PredictionIO-0.13.0
+
 USER pio
 
 RUN wget http://apache.mirror.anlx.net/predictionio/0.13.0/apache-predictionio-0.13.0-bin.tar.gz && \
@@ -27,14 +29,15 @@ RUN wget http://apache.mirror.anlx.net/predictionio/0.13.0/apache-predictionio-0
     tar zxvfC hbase-1.2.6-bin.tar.gz PredictionIO-0.13.0/vendors && \
     rm hbase-1.2.6-bin.tar.gz
 
-ADD conf/pio-env.sh /home/pio/PredictionIO-0.13.0/conf/pio-env.sh
-ADD conf/hbase-site.xml /home/pio/PredictionIO-0.13.0/vendors/hbase-1.2.6/conf/hbase-site.xml
-ADD conf/hbase-env.sh /home/pio/PredictionIO-0.13.0/vendors/hbase-1.2.6/conf/hbase-env.sh
-ADD conf/pio-daemon  /home/pio/PredictionIO-0.13.0/bin/pio-daemon
+ADD conf/pio-env.sh $PIO_HOME/conf/pio-env.sh
+ADD conf/hbase-site.xml $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-site.xml
+ADD conf/hbase-env.sh $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-env.sh
+ADD conf/pio-daemon  $PIO_HOME/bin/pio-daemon
+ADD conf/run.sh /home/pio/run.sh
 
-WORKDIR /home/pio/PredictionIO-0.13.0
+WORKDIR $PIO_HOME
 
 EXPOSE 8000
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["/home/pio/PredictionIO-0.13.0/bin/pio-start-all"]
+CMD ["/home/pio/run.sh"]
