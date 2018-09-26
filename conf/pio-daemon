@@ -75,4 +75,5 @@ FIRST_HALF="${@:1:$FIRST_SEP}"
 
 SECOND_HALF="${@:$FIRST_SEP+1}"
 
-${PIO_HOME}/bin/pio-class org.apache.predictionio.tools.console.Console ${FIRST_HALF} --pio-home ${PIO_HOME} ${SECOND_HALF}
+exec nohup ${PIO_HOME}/bin/pio-class org.apache.predictionio.tools.console.Console ${FIRST_HALF} --pio-home ${PIO_HOME} ${SECOND_HALF} <&- > ~/nohup.out 2>&1 &
+echo $! > ${PIDFILE}

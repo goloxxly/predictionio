@@ -1,9 +1,14 @@
 FROM centos:7
 LABEL maintainer 'György Novák <gyorgy.novak@loxxly.com>'
 
-RUN yum install -y wget java-1.8.0-openjdk-devel
+RUN yum install -y wget java-1.8.0-openjdk-devel git which
 
 RUN groupadd -r pio && useradd --no-log-init -r -g pio pio
+
+# JSON editor tool
+RUN wget -O /usr/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 && \
+    chmod +x /usr/bin/jq
+
 
 WORKDIR /home/pio
 RUN chown -R pio:pio /home/pio
@@ -34,8 +39,6 @@ ADD conf/hbase-site.xml $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-site.xml
 ADD conf/hbase-env.sh $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-env.sh
 ADD conf/pio-daemon  $PIO_HOME/bin/pio-daemon
 ADD conf/run.sh /home/pio/run.sh
-
-WORKDIR $PIO_HOME
 
 EXPOSE 8000
 
