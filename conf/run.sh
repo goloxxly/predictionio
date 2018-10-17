@@ -9,7 +9,14 @@ fi
 
 export APP_NAME
 
-$PIO_HOME/bin/pio app new $APP_NAME
+ACCESS_KEY_PART=
+if [[ ! -z "$ACCESS_KEY" ]]; then
+  # Use access key if defined
+  ACCESS_KEY_PART="--access-key $ACCESS_KEY"
+fi
+
+echo "Starting with command:\n$PIO_HOME/bin/pio app new $ACCESS_KEY_PART $APP_NAME"
+$PIO_HOME/bin/pio app new $ACCESS_KEY_PART $APP_NAME
 
 
 # Check out an engine template and install it if
