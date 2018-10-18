@@ -38,9 +38,10 @@ ADD conf/pio-env.sh $PIO_HOME/conf/pio-env.sh
 ADD conf/hbase-site.xml $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-site.xml
 ADD conf/hbase-env.sh $PIO_HOME/vendors/hbase-1.2.6/conf/hbase-env.sh
 ADD conf/pio-daemon  $PIO_HOME/bin/pio-daemon
+ADD conf/pio-start-all  $PIO_HOME/bin/pio-start-all
 ADD conf/run.sh /home/pio/run.sh
 
-EXPOSE 8000
+EXPOSE 7070
 
 ENTRYPOINT ["/bin/bash"]
 CMD ["/home/pio/run.sh"]

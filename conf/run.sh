@@ -15,7 +15,7 @@ if [[ ! -z "$ACCESS_KEY" ]]; then
   ACCESS_KEY_PART="--access-key $ACCESS_KEY"
 fi
 
-echo "Starting with command:\n$PIO_HOME/bin/pio app new $ACCESS_KEY_PART $APP_NAME"
+echo "Starting with command: $PIO_HOME/bin/pio app new $ACCESS_KEY_PART $APP_NAME"
 $PIO_HOME/bin/pio app new $ACCESS_KEY_PART $APP_NAME
 
 
